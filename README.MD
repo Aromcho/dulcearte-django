@@ -7,7 +7,7 @@
 
 ### 1. Clonar el Repositorio
 ```bash
-git clone https://github.com/usuario/dulcearte.git
+git clone https://github.com/Aromcho/dulcearte-django.git
 cd dulcearte
 ```
 
