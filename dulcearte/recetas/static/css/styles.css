@@ -1,0 +1,17 @@
+/* recetas/static/css/styles.css */
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.jumbotron {
+    background-color: #e9ecef;
+    padding: 2rem 1rem;
+}
+
+.card-title {
+    font-weight: bold;
+}

@@ -1,0 +1,15 @@
+registro.html<!-- usuarios/templates/usuarios/registro.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro en DulceArte</title>
+</head>
+<body>
+    <h1>Registro</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Registrarse</button>
+    </form>
+</body>
+</html>

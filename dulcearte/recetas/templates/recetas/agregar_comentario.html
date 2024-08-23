@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Comentario - DulceArte</title>
+</head>
+<body>
+    <h1>Agregar Comentario</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Comentario</button>
+    </form>
+    <a href="{% url 'home' %}">Volver al inicio</a>
+</body>
+</html>

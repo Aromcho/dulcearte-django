@@ -1,0 +1,29 @@
+<!-- recetas/templates/recetas/home.html -->
+{% extends 'recetas/base.html' %}
+
+{% block title %}Inicio - DulceArte{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Bienvenido a DulceArte</h1>
+        <p class="lead">Aquí encontrarás las mejores recetas de pastelería.</p>
+        <hr class="my-4">
+        <p>Comparte tus propias recetas y descubre las creaciones de otros.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'crear_receta' %}" role="button">Crear una Receta</a>
+    </div>
+
+    <h2>Recetas Recientes</h2>
+    <div class="row">
+        {% for receta in recetas %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ receta.titulo }}</h5>
+                        <p class="card-text">{{ receta.descripcion|truncatewords:20 }}</p>
+                        <a href="#" class="btn btn-primary">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
