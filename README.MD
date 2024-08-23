@@ -8,13 +8,13 @@
 ### 1. Clonar el Repositorio
 ```bash
 git clone https://github.com/Aromcho/dulcearte-django.git
-cd dulcearte
 ```
 
 ### 2. Crear y Activar el Entorno Virtual
 ```bash
 python -m venv venv
 source venv/bin/activate  # En Windows: venv\Scripts\activate
+cd dulcearte
 ```
 
 ### 3. Instalar Dependencias
