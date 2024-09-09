@@ -1,0 +1,39 @@
+{% extends 'recetas/base.html' %}
+
+{% block title %}{{ receta.titulo }} - DulceArte{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ receta.titulo }}</h1>
+                <p class="text-muted">Publicado por {{ receta.autor }} el {{ receta.fecha_creacion }}</p>
+                <hr>
+                <h4>Ingredientes</h4>
+                <p>{{ receta.ingredientes }}</p>
+                <h4>Instrucciones</h4>
+                <p>{{ receta.instrucciones }}</p>
+                
+                <!-- Mostrar solo el botón si la receta no está publicada -->
+                {% if not receta.publicada %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" name="publicar" class="btn btn-success">Publicar Receta</button>
+                    </form>
+                {% else %}
+                    <p class="text-success">Esta receta ya ha sido publicada.</p>
+                {% endif %}
+                <h2>Comentarios</h2>
+                <ul>
+                    {% for comentario in receta.comentarios.all %}
+                        <li>{{ comentario.contenido }} - {{ comentario.autor }}</li>
+                    {% empty %}
+                        <li>No hay comentarios aún.</li>
+                    {% endfor %}
+                </ul>
+
+                <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Volver al inicio</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

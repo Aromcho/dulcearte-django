@@ -1,0 +1,18 @@
+{% extends 'recetas/base.html' %}
+
+{% block title %}Mis Recetas - DulceArte{% endblock %}
+
+{% block content %}
+    <h1>Mis Recetas</h1>
+    <ul class="list-group">
+        {% for receta in recetas %}
+            <li class="list-group-item">
+                {{ receta.titulo }} - {{ receta.fecha_creacion }}
+                <!-- Agregar enlace para ver el detalle de la receta -->
+                <a href="{% url 'detalle_receta' receta.id %}" class="btn btn-primary btn-sm float-end">Ver Detalles</a>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No has creado ninguna receta todavía.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

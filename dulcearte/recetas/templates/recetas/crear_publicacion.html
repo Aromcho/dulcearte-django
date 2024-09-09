@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Crear Publicación - DulceArte</title>
-</head>
-<body>
+{% extends 'recetas/base.html' %}
+
+{% block title %}Crear Publicación - DulceArte{% endblock %}
+
+{% block content %}
     <h1>Crear Nueva Publicación</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar Publicación</button>
+        <button type="submit" class="btn btn-primary">Guardar Publicación</button>
     </form>
-    <a href="{% url 'home' %}">Volver al inicio</a>
-</body>
-</html>
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Volver al inicio</a>
+{% endblock %}

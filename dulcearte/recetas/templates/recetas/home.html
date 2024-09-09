@@ -1,4 +1,3 @@
-<!-- recetas/templates/recetas/home.html -->
 {% extends 'recetas/base.html' %}
 
 {% block title %}Inicio - DulceArte{% endblock %}
@@ -20,7 +19,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ receta.titulo }}</h5>
                         <p class="card-text">{{ receta.descripcion|truncatewords:20 }}</p>
-                        <a href="#" class="btn btn-primary">Ver Receta</a>
+                        <!-- Link al detalle de la receta -->
+                        <a href="{% url 'detalle_receta' receta.id %}" class="btn btn-primary">Ver Receta</a>
                     </div>
                 </div>
             </div>

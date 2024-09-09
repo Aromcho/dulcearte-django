@@ -1,8 +1,6 @@
+# forms.py
 from django import forms
-from .models import Receta
-from .models import Publicacion
-from .models import Comentario
-
+from .models import Receta, Publicacion, Comentario
 
 class RecetaForm(forms.ModelForm):
     class Meta:
@@ -17,4 +15,4 @@ class PublicacionForm(forms.ModelForm):
 class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
-        fields = ['contenido', 'publicacion']
+        fields = ['contenido']  # El campo 'receta' será asignado en la vista

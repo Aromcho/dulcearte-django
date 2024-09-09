@@ -1,0 +1,91 @@
+{% extends 'recetas/base.html' %}
+
+{% block title %}Feed - DulceArte{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-4">Últimas Recetas</h2>
+        <div class="row">
+            {% for receta in recetas %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ receta.titulo }}</h5>
+                            <p class="card-text">{{ receta.descripcion|truncatewords:20 }}</p>
+                            <a href="{% url 'detalle_receta' receta.id %}" class="btn btn-primary mb-3">Ver Receta</a>
+                            
+                            <!-- Sección de me gusta -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button data-id="{{ receta.id }}" class="btn btn-danger btn-megusta">❤ Me gusta</button>
+                                <span id="like-count-{{ receta.id }}" class="text-muted">{{ receta.megusta_set.count }} Me gusta</span>
+                            </div>
+
+                            <!-- Sección de comentarios -->
+                            <hr>
+                            <h2>Comentarios</h2>
+                            <ul>
+                                {% for comentario in receta.comentarios.all %}
+                                    <li>{{ comentario.contenido }} - {{ comentario.autor }}</li>
+                                {% empty %}
+                                    <li>No hay comentarios aún.</li>
+                                {% endfor %}
+                            </ul>
+
+                            <!-- Formulario para agregar comentario -->
+                            <form class="comment-form" data-id="{{ receta.id }}">
+                                {% csrf_token %}
+                                <input type="text" name="contenido" placeholder="Escribe un comentario..." required>
+                                <button type="submit" class="btn btn-primary">Comentar</button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Script para manejar AJAX -->
+    <script>
+        // Manejar el clic en el botón de "Me gusta"
+        document.querySelectorAll('.btn-megusta').forEach(button => {
+            button.addEventListener('click', function() {
+                const recetaId = this.dataset.id;
+                fetch(`/receta/${recetaId}/megusta/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById(`like-count-${recetaId}`).innerText = `${data.likes} Me gusta`;
+                });
+            });
+        });
+
+        // Manejar el formulario de comentarios
+        document.querySelectorAll('.comment-form').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const recetaId = this.dataset.id;
+                const formData = new FormData(this);
+
+                fetch(`/receta/${recetaId}/comentario/`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Actualizar la lista de comentarios
+                    const comentarioList = this.previousElementSibling;
+                    comentarioList.innerHTML += `<li>${data.comentario} - ${data.autor}</li>`;
+                    this.reset();  // Limpiar el formulario
+                });
+            });
+        });
+    </script>
+{% endblock %}
